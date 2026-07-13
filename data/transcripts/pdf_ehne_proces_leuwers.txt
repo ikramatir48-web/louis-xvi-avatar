@@ -1,0 +1,70 @@
+[SOURCE: PDF]
+[FICHIER: EHNE_Procès et mort de Louis XVI.pdf]
+[TITRE: Procès et mort de Louis XVI (décembre 1792 - janvier 1793)]
+[AUTEUR: Hervé Leuwers]
+[ORIGINE: Encyclopédie d'histoire numérique de l'Europe (EHNE)]
+[NOTE: Article académique de référence, inclut un document source authentique : extrait du procès-verbal de l'interrogatoire de Louis XVI devant la Convention le 11 décembre 1792.]
+---
+
+RÉSUMÉ
+
+Le procès de Louis XVI devant la Convention (décembre 1792 - janvier 1793) aboutit à l'exécution de l'ancien roi, le 21 janvier 1793. Durant ce procès, les représentants du peuple ont examiné les faits reprochés au monarque déchu, interrogé l'accusé et entendu ses défenseurs. Le 11 décembre 1792, le président de la Convention, Bertrand Barère, a lu l'acte d'accusation et mené l'interrogatoire.
+
+DÉROULEMENT ET ENJEUX POLITIQUES DU PROCÈS
+
+En 1789, rares sont les Français à envisager l'établissement d'une république, tant demeure fort l'attachement à Louis XVI, proclamé "restaurateur de la liberté française" par l'Assemblée nationale à l'issue de l'abolition des privilèges (4 août). La fuite du roi dans la nuit du 20 au 21 juin 1791, interrompue à Varennes, puis le refus de Louis XVI de sévir contre les émigrés, les prêtres réfractaires et ses hésitations supposées dans la guerre déclarée à l'Autriche (avril 1792), rompent peu à peu le lien de confiance entre le pays et son roi.
+
+Le 10 août 1792, une insurrection contre le château des Tuileries conduit l'Assemblée législative à suspendre provisoirement Louis XVI et à convoquer une Convention nationale. En décrétant l'abolition de la royauté dès sa première séance, le 21 septembre 1792, la Convention pose d'emblée la question du devenir de l'ancien monarque.
+
+À partir de novembre 1792, trois options sont examinées. De rares députés, tel Charles Morisson, refusent l'idée d'un procès au nom de la Constitution de 1791, qui reconnaît la personne du roi "inviolable et sacrée". À l'autre extrémité, Saint-Just, Jeanbon Saint-André ou Robespierre s'opposent également au procès, soutenant que le roi a déjà été condamné par le 10 août lui-même: "Remettre son jugement en question, explique Jeanbon Saint-André, ce serait faire le procès de la révolution." Le 3 décembre 1792, la majorité opte pour une troisième solution: un procès devant la Convention, qui siège dans la salle du Manège.
+
+Le procès proprement dit occupe le mois de décembre 1792 et les premières semaines de janvier 1793. Devant la Convention, le 11 décembre, le roi répond aux différents points de l'acte d'accusation; quinze jours plus tard, l'avocat Raymond de Sèze prononce la plaidoirie de la défense, préparée avec François-Denis Tronchet et Chrétien-Guillaume Malesherbes. Pendant plus de deux heures, de Sèze rappelle l'inviolabilité du roi jusqu'à l'été 1792, rejette l'idée de sa condamnation par l'insurrection du 10 août et nie toute trahison royale.
+
+LES VOTES (15-19 JANVIER 1793)
+
+Du 15 au 17 janvier 1793, trois votes nominaux permettent à chaque député de se prononcer publiquement. Après avoir reconnu à l'unanimité la culpabilité de l'ancien roi, la Convention s'oppose à une demande de confirmation de la sentence par les citoyens réunis en assemblées primaires (procédure dite "appel au peuple"), puis se prononce à une majorité de 387 voix contre 334 pour la peine capitale.
+
+Comme 26 des 387 partisans de la mort ont demandé un quatrième appel nominal sur un possible report de l'exécution, un dernier scrutin est organisé le 19 janvier, qui rejette le sursis par 380 voix sur 690 votants. Pour l'exécution, la guillotine a été déplacée sur l'ancienne place Louis XV, devenue place de la Révolution (aujourd'hui place de la Concorde).
+
+DIVISIONS POLITIQUES
+
+Pendant le procès, les divisions se sont accentuées entre les députés de la Montagne et les Girondins (brissotins). Si la Montagne a voté la mort du ci-devant roi, les Girondins se sont divisés sur la peine, mais se sont entendus sur la nécessité de l'appel de la sanction au peuple; leurs adversaires les qualifient "d'appelants" et leur reprochent d'avoir voulu sauver le roi.
+
+DOCUMENT SOURCE: INTERROGATOIRE DE "LOUIS CAPET" DEVANT LA CONVENTION (11 DÉCEMBRE 1792)
+
+[Extrait du procès-verbal de la Convention nationale, t. III, Paris, Imprimerie nationale, 1793]
+
+Le Président dit:
+
+"Louis, vous allez répondre aux questions que la Convention nationale me charge de vous faire. Louis, le peuple français vous accuse d'avoir commis une multitude de crimes pour établir votre tyrannie, en détruisant sa liberté. Vous avez, le 20 juin 1789, attenté à la souveraineté du peuple en suspendant les assemblées de ses représentants et en les repoussant par la violence du lieu de leurs séances. Qu'avez-vous à répondre?"
+
+Réponse [Louis]: "Il n'y avait aucunes lois dans ce temps-là qui existassent sur cet objet."
+
+[Le Président]: "Vous avez fait marcher une armée contre les citoyens de Paris. Vos satellites ont fait couler leur sang. Qu'avez-vous à répondre?"
+
+[Louis]: "J'étais le maître de faire marcher les troupes comme je le voulais, dans ce temps-là; jamais mon intention n'a été de faire répandre du sang."
+
+[Le Président]: "Après votre arrestation à Varennes, l'exercice du pouvoir exécutif fut un moment suspendu dans vos mains, et vous conspirâtes encore. Le 17 juillet 1791, le sang des citoyens fut versé au Champ-de-Mars. Qu'avez-vous à répondre?"
+
+[Louis]: "Ce qui s'est passé le 17 juillet ne peut, en aucune manière, me regarder; pour le reste, je n'en ai aucune connaissance."
+
+[Le Président]: "Une convention avait été faite à Pillnitz entre Léopold d'Autriche et Frédéric-Guillaume de Brandebourg, qui s'étaient engagés à relever en France le trône de la monarchie absolue, et vous vous êtes tu sur cette convention jusqu'au moment où elle a été connue de l'Europe entière. Qu'avez-vous à répondre?"
+
+[Louis]: "Je l'ai fait connaître sitôt qu'elle est venue à ma connaissance; au reste, c'est une affaire qui regarde, par la Constitution, les ministres."
+
+[Le Président]: "Le corps législatif avait rendu le 29 novembre 1791 un décret contre les prêtres factieux; vous en avez suspendu l'exécution. Qu'avez-vous à répondre?"
+
+[Louis]: "La Constitution me laissait la sanction libre des décrets."
+
+ÉCLAIRAGE: DEUX LECTURES OPPOSÉES DES ANNÉES 1789-1792
+
+Les questions de Bertrand Barère et les réponses du roi déchu révèlent deux lectures contradictoires des années 1789-1792. D'un côté, la Convention interprète cette période comme une lutte incessante pour l'affirmation de la liberté et de la souveraineté nationale, sans cesse entravée par le roi. De son côté, l'ancien monarque assure avoir toujours respecté la loi: pour justifier la fermeture de la salle des Menus Plaisirs le 20 juin 1789, puis la concentration de troupes autour de Paris, il assure que rien "dans ce temps-là" ne limitait son pouvoir absolu; il affirme ensuite sa fidélité à la Constitution de 1791, et justifie par elle son usage du veto: "La constitution me laissait la sanction libre des décrets."
+
+Le système de défense adopté par l'ancien roi comprend également des dénégations ("Je n'en ai aucune connaissance") et des rejets de responsabilité sur d'autres autorités, comme ses ministres, ainsi qu'une affirmation de son indéfectible attachement au peuple: "Jamais mon intention n'a été de faire répandre du sang."
+
+BIBLIOGRAPHIE CITÉE PAR L'ARTICLE
+
+BÉTOURNÉ, Olivier, La mort du roi. Louis XVI devant ses juges et face à l'histoire, Paris, Ed. du Seuil, 2024.
+LEUWERS, Hervé, La Révolution française, une histoire occidentale, Paris, Puf, 2025.
+MARTIN, Jean-Clément, L'exécution du roi. 21 janvier 1793, Paris, Perrin, 2021.
+SOBOUL, Albert, Le Procès de Louis XVI, Paris, Gallimard, "Folio", 2014.

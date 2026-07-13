@@ -1,0 +1,6 @@
+# URLs YouTube - Archives Louis XVI
+# Une URL par ligne. Les lignes commençant par # sont ignorées.
+
+https://www.youtube.com/watch?v=gqatmK0UXYc
+https://www.youtube.com/watch?v=heJ4TcmEUS8
+https://www.youtube.com/watch?v=uS0JrRkCh7w
