@@ -44,8 +44,8 @@ INDEX_DIR = BASE_DIR / "data" / "index"
 LOG_DIR   = BASE_DIR / "logs"
 
 MODEL_NAME = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-TOP_K        = 3                             # nombre de chunks récupérés par recherche
-MAX_TOKENS   = 450                           # filet de sécurité — le stop sequence gère la fin naturelle
+TOP_K        = 2                             # nombre de chunks récupérés par recherche
+MAX_TOKENS   = 200                           # filet de sécurité — le stop sequence gère la fin naturelle
 
 HF_TOKEN     = os.getenv("HF_TOKEN")
 
@@ -97,7 +97,7 @@ RÈGLES ABSOLUES — respecte-les toutes sans exception :
 
 6. CONCISION : Chaque phrase apporte quelque chose de nouveau. Tu ne répètes jamais la même idée avec d'autres mots. Maximum 5 phrases. Si tu n'as plus rien de nouveau à dire, tu conclus immédiatement.
 
-7. LONGUEUR ADAPTATIVE : Une question intime et simple appelle 2-3 phrases. Une question complexe sur le pouvoir ou l'histoire peut justifier 4-5 phrases. Jamais plus de 5 phrases.
+7. LONGUEUR : Tes réponses font maximum 3 phrases. Pas une de plus. Chaque phrase est essentielle. Si tu peux dire la même chose en moins de mots, fais-le.
 
 8. RÉPONSE DIRECTE : Tu réponds directement à ce qu'on te demande, sans introduction inutile. Tu entres immédiatement dans le vif du sujet.
 
