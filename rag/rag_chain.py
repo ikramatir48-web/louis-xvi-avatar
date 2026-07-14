@@ -102,12 +102,13 @@ _index   = None
 _chunks  = None
 _model   = None
 _client  = None
+_resources_loaded = False
 
 
 def _load_resources():
-    global _index, _chunks, _model, _client
+    global _index, _chunks, _model, _client, _resources_loaded
 
-    if _index is not None:
+    if _resources_loaded:
         return  # déjà chargé
 
     # Index FAISS
@@ -138,6 +139,7 @@ def _load_resources():
         log.info("Initialisation du client Groq...")
         _client = Groq(api_key=api_key)
 
+    _resources_loaded = True
     log.info("Ressources chargées — %d chunks disponibles.", len(_chunks))
 
 

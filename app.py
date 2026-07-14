@@ -137,7 +137,7 @@ logger.info(
 # ----------------------------------------------------------------------
 
 try:
-    from rag_chain import ask_louis_stream
+    from rag_chain import ask_louis_stream, _load_resources
     import_error = None
 except Exception as e:
     ask_louis_stream = None
@@ -146,6 +146,13 @@ except Exception as e:
 
 if import_error:
     st.error(f"Impossible de charger l'avatar Louis XVI : {import_error}")
+else:
+    @st.cache_resource
+    def _load_cached_resources():
+        _load_resources()
+        return True
+
+    _load_cached_resources()
 
 # ----------------------------------------------------------------------
 # Historique de la conversation (persiste pendant la session)
