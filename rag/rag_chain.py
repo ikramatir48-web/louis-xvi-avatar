@@ -33,6 +33,7 @@ import numpy as np
 import faiss
 import requests
 from groq import Groq
+from huggingface_hub import InferenceClient
 
 # ----------------------------------------------------------------------
 # Configuration
@@ -47,7 +48,6 @@ TOP_K        = 3                             # nombre de chunks récupérés par
 MAX_TOKENS   = 450                           # filet de sécurité — le stop sequence gère la fin naturelle
 
 HF_TOKEN     = os.getenv("HF_TOKEN")
-HF_API_URL   = f"https://api-inference.huggingface.co/models/sentence-transformers/{MODEL_NAME}"
 
 LLM_BACKEND  = os.getenv("LLM_BACKEND", "groq").strip().lower()
 
@@ -145,16 +145,21 @@ def _load_resources():
 # Recherche sémantique dans FAISS
 # ----------------------------------------------------------------------
 
+def _encode_question(question: str) -> np.ndarray:
+    client = InferenceClient(token=HF_TOKEN)
+    result = client.feature_extraction(question, model=MODEL_NAME)
+    vec = np.array(result, dtype="float32")
+    if vec.ndim == 2:
+        vec = vec.mean(axis=0)
+    norm = np.linalg.norm(vec)
+    if norm > 0:
+        vec = vec / norm
+    return vec.reshape(1, -1)
+
+
 def _retrieve(question: str, k: int = TOP_K) -> list[dict]:
     """Retourne les k chunks les plus proches de la question."""
-    response = requests.post(
-        HF_API_URL,
-        headers={"Authorization": f"Bearer {HF_TOKEN}"},
-        json={"inputs": [question]},
-    )
-    response.raise_for_status()
-    embedding = np.array(response.json(), dtype="float32")
-    embedding = embedding / np.linalg.norm(embedding, axis=1, keepdims=True)
+    embedding = _encode_question(question)
 
     scores, indices = _index.search(embedding, k)
 

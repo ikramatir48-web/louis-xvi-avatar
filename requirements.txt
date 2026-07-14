@@ -1,5 +1,6 @@
 faiss-cpu
 groq
+huggingface-hub
 streamlit
 requests
 beautifulsoup4
