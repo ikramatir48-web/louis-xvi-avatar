@@ -31,7 +31,6 @@ from pathlib import Path
 
 import numpy as np
 import faiss
-from sentence_transformers import SentenceTransformer
 import requests
 from groq import Groq
 
@@ -46,6 +45,9 @@ LOG_DIR   = BASE_DIR / "logs"
 MODEL_NAME   = "paraphrase-multilingual-MiniLM-L12-v2"
 TOP_K        = 3                             # nombre de chunks récupérés par recherche
 MAX_TOKENS   = 450                           # filet de sécurité — le stop sequence gère la fin naturelle
+
+HF_TOKEN     = os.getenv("HF_TOKEN")
+HF_API_URL   = f"https://api-inference.huggingface.co/models/sentence-transformers/{MODEL_NAME}"
 
 LLM_BACKEND  = os.getenv("LLM_BACKEND", "groq").strip().lower()
 
@@ -100,13 +102,12 @@ Réponds maintenant à la question suivante en restant Louis XVI :"""
 
 _index   = None
 _chunks  = None
-_model   = None
 _client  = None
 _resources_loaded = False
 
 
 def _load_resources():
-    global _index, _chunks, _model, _client, _resources_loaded
+    global _index, _chunks, _client, _resources_loaded
 
     if _resources_loaded:
         return  # déjà chargé
@@ -124,9 +125,6 @@ def _load_resources():
 
     log.info("Chargement des chunks...")
     _chunks = json.loads(chunks_path.read_text(encoding="utf-8"))
-
-    log.info("Chargement du modèle d'embeddings...")
-    _model = SentenceTransformer(MODEL_NAME)
 
     if LLM_BACKEND == "ollama":
         log.info("Backend Ollama — aucun client à initialiser (appels HTTP directs).")
@@ -149,11 +147,14 @@ def _load_resources():
 
 def _retrieve(question: str, k: int = TOP_K) -> list[dict]:
     """Retourne les k chunks les plus proches de la question."""
-    embedding = _model.encode(
-        [question],
-        convert_to_numpy=True,
-        normalize_embeddings=True,
-    ).astype("float32")
+    response = requests.post(
+        HF_API_URL,
+        headers={"Authorization": f"Bearer {HF_TOKEN}"},
+        json={"inputs": [question]},
+    )
+    response.raise_for_status()
+    embedding = np.array(response.json(), dtype="float32")
+    embedding = embedding / np.linalg.norm(embedding, axis=1, keepdims=True)
 
     scores, indices = _index.search(embedding, k)
 
