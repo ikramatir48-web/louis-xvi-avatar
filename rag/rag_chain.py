@@ -44,7 +44,7 @@ INDEX_DIR = BASE_DIR / "data" / "index"
 LOG_DIR   = BASE_DIR / "logs"
 
 MODEL_NAME   = "paraphrase-multilingual-MiniLM-L12-v2"
-TOP_K        = 5                             # nombre de chunks récupérés par recherche
+TOP_K        = 3                             # nombre de chunks récupérés par recherche
 MAX_TOKENS   = 500                           # filet de sécurité — le stop sequence gère la fin naturelle
 
 LLM_BACKEND  = os.getenv("LLM_BACKEND", "groq").strip().lower()
