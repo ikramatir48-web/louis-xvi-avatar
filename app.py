@@ -161,6 +161,11 @@ else:
 if "history" not in st.session_state:
     st.session_state.history = []  # liste de (question, reponse, erreur)
 
+if "conversation_history" not in st.session_state:
+    st.session_state.conversation_history = []  # liste de {"role": ..., "content": ...}
+
+MAX_HISTORY_EXCHANGES = 6  # nombre d'échanges (question + réponse) conservés
+
 # ----------------------------------------------------------------------
 # Formulaire de question
 # ----------------------------------------------------------------------
@@ -187,8 +192,15 @@ if submitted:
     else:
         try:
             logger.info("Appel ask_louis_stream, question=%s", question)
-            reponse = st.write_stream(_count_tokens(ask_louis_stream(question)))
+            reponse = st.write_stream(
+                _count_tokens(ask_louis_stream(question, st.session_state.conversation_history))
+            )
             st.session_state.history.append((question, reponse, None))
+            st.session_state.conversation_history.append({"role": "user", "content": question})
+            st.session_state.conversation_history.append({"role": "assistant", "content": reponse})
+            st.session_state.conversation_history = st.session_state.conversation_history[
+                -MAX_HISTORY_EXCHANGES * 2 :
+            ]
         except Exception as e:
             logger.exception("Erreur lors de la génération de la réponse")
             st.session_state.history.append((question, None, str(e)))

@@ -230,13 +230,15 @@ def _call_ollama(full_prompt: str, question: str) -> str:
     return response.json()["response"].strip()
 
 
-def _call_groq_stream(full_prompt: str, question: str):
+def _call_groq_stream(full_prompt: str, question: str, conversation_history: list[dict] | None = None):
+    messages = [{"role": "system", "content": full_prompt}]
+    if conversation_history:
+        messages.extend(conversation_history)
+    messages.append({"role": "user", "content": question})
+
     stream = _client.chat.completions.create(
         model=GROQ_MODEL,
-        messages=[
-            {"role": "system", "content": full_prompt},
-            {"role": "user", "content": question},
-        ],
+        messages=messages,
         temperature=0.4,
         max_tokens=MAX_TOKENS,
         stream=True,
@@ -247,10 +249,16 @@ def _call_groq_stream(full_prompt: str, question: str):
             yield token
 
 
-def _call_ollama_stream(full_prompt: str, question: str):
+def _call_ollama_stream(full_prompt: str, question: str, conversation_history: list[dict] | None = None):
+    history_text = ""
+    if conversation_history:
+        for msg in conversation_history:
+            speaker = "Utilisateur" if msg["role"] == "user" else "Louis XVI"
+            history_text += f"{speaker} : {msg['content']}\n\n"
+
     response = requests.post(OLLAMA_URL, json={
         "model": OLLAMA_MODEL,
-        "prompt": full_prompt + "\n\n" + question,
+        "prompt": full_prompt + "\n\n" + history_text + question,
         "stream": True,
         "options": {"temperature": 0.4, "num_predict": MAX_TOKENS}
     }, stream=True)
@@ -303,12 +311,14 @@ def ask_louis(question: str) -> str:
     return answer
 
 
-def ask_louis_stream(question: str):
+def ask_louis_stream(question: str, conversation_history: list[dict] | None = None):
     """
     Pose une question à Louis XVI et retourne un générateur de tokens.
 
     Args:
         question: La question posée à Louis XVI (en français).
+        conversation_history: Liste optionnelle d'échanges précédents de la
+            session, sous la forme [{"role": "user"/"assistant", "content": "..."}].
 
     Yields:
         Les tokens de la réponse de Louis XVI, au fur et à mesure de leur génération.
@@ -330,9 +340,9 @@ def ask_louis_stream(question: str):
 
     # Appel au LLM en streaming (backend choisi via LLM_BACKEND)
     if LLM_BACKEND == "ollama":
-        token_stream = _call_ollama_stream(full_prompt, question)
+        token_stream = _call_ollama_stream(full_prompt, question, conversation_history)
     else:
-        token_stream = _call_groq_stream(full_prompt, question)
+        token_stream = _call_groq_stream(full_prompt, question, conversation_history)
 
     total_len = 0
     for token in token_stream:
