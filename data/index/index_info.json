@@ -1,0 +1,8 @@
+{
+  "model_name": "paraphrase-multilingual-MiniLM-L12-v2",
+  "embedding_dim": 384,
+  "n_chunks": 102,
+  "n_documents": 20,
+  "target_words_per_chunk": 400,
+  "overlap_words": 50
+}
