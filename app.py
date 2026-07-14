@@ -7,6 +7,7 @@ Lancement (depuis la racine du projet) :
     streamlit run app.py
 """
 
+import logging
 import os
 import sys
 from pathlib import Path
@@ -14,6 +15,30 @@ from pathlib import Path
 import streamlit as st
 
 sys.path.insert(0, str(Path(__file__).parent / "rag"))
+
+# ----------------------------------------------------------------------
+# Logging — console + expander Streamlit pour déboguer sur le cloud
+# ----------------------------------------------------------------------
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s",
+)
+logger = logging.getLogger(__name__)
+
+if "log_lines" not in st.session_state:
+    st.session_state.log_lines = []
+
+
+class _SessionLogHandler(logging.Handler):
+    def emit(self, record):
+        st.session_state.log_lines.append(self.format(record))
+
+
+if not any(isinstance(h, _SessionLogHandler) for h in logger.handlers):
+    _session_handler = _SessionLogHandler()
+    _session_handler.setFormatter(logging.Formatter("%(asctime)s | %(levelname)s | %(message)s"))
+    logger.addHandler(_session_handler)
 
 # ----------------------------------------------------------------------
 # Configuration de la page
@@ -101,6 +126,12 @@ if LLM_BACKEND == "groq" and not GROQ_API_KEY:
         "GROQ_API_KEY n'est pas définie. L'appel à Louis XVI échouera."
     )
 
+logger.info(
+    "App démarrée, LLM_BACKEND=%s, GROQ_API_KEY=%s",
+    LLM_BACKEND,
+    "définie" if GROQ_API_KEY else "manquante",
+)
+
 # ----------------------------------------------------------------------
 # Import de la chaîne RAG — ne doit jamais faire planter l'app
 # ----------------------------------------------------------------------
@@ -111,6 +142,7 @@ try:
 except Exception as e:
     ask_louis_stream = None
     import_error = str(e)
+    logger.exception("Échec de l'import de rag_chain")
 
 if import_error:
     st.error(f"Impossible de charger l'avatar Louis XVI : {import_error}")
@@ -130,6 +162,15 @@ with st.form("question_form", clear_on_submit=True):
     question = st.text_input("Votre question à Louis XVI :")
     submitted = st.form_submit_button("Poser la question")
 
+
+def _count_tokens(token_stream):
+    count = 0
+    for token in token_stream:
+        count += 1
+        yield token
+    logger.info("Stream terminé, %d tokens reçus", count)
+
+
 if submitted:
     question = question.strip()
     if not question:
@@ -138,9 +179,11 @@ if submitted:
         st.error("L'avatar Louis XVI n'est pas disponible (voir l'erreur ci-dessus).")
     else:
         try:
-            reponse = st.write_stream(ask_louis_stream(question))
+            logger.info("Appel ask_louis_stream, question=%s", question)
+            reponse = st.write_stream(_count_tokens(ask_louis_stream(question)))
             st.session_state.history.append((question, reponse, None))
         except Exception as e:
+            logger.exception("Erreur lors de la génération de la réponse")
             st.session_state.history.append((question, None, str(e)))
 
 # ----------------------------------------------------------------------
@@ -155,3 +198,10 @@ if st.session_state.history:
             st.error(f"Une erreur est survenue lors de la génération de la réponse : {erreur}")
         else:
             st.markdown(f'<div class="louis-box">👑 {reponse}</div>', unsafe_allow_html=True)
+
+# ----------------------------------------------------------------------
+# Logs techniques (pour déboguer sans regarder la console)
+# ----------------------------------------------------------------------
+
+with st.expander("Logs techniques"):
+    st.code("\n".join(st.session_state.log_lines) or "Aucun log pour le moment.")
