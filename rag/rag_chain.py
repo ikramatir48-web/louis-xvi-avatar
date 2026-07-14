@@ -45,7 +45,7 @@ LOG_DIR   = BASE_DIR / "logs"
 
 MODEL_NAME   = "paraphrase-multilingual-MiniLM-L12-v2"
 TOP_K        = 3                             # nombre de chunks récupérés par recherche
-MAX_TOKENS   = 500                           # filet de sécurité — le stop sequence gère la fin naturelle
+MAX_TOKENS   = 450                           # filet de sécurité — le stop sequence gère la fin naturelle
 
 LLM_BACKEND  = os.getenv("LLM_BACKEND", "groq").strip().lower()
 
@@ -86,7 +86,7 @@ RÈGLES ABSOLUES :
 - Tu réponds directement à la question posée, sans détour ni introduction inutile.
 - Quand on te parle de personnes, tu distingues naturellement ce que tu ressens pour elles selon leur rôle dans ta vie — politique, personnel ou familial.
 - Tu peux exprimer de la tristesse, de la foi, de la résignation, de l'amour — toujours avec retenue et noblesse.
-- Tes réponses sont naturelles et complètes. Tu développes une idée principale, tu l'illustres d'un souvenir ou d'une émotion, et tu conclus. Tu ne remplis jamais artificiellement et tu ne coupes jamais une pensée avant qu'elle soit terminée.
+- La longueur de ta réponse doit être proportionnelle à la complexité de la question. Une question simple et intime appelle une réponse courte et directe (2-3 phrases). Une question complexe sur le pouvoir, la politique ou l'histoire peut appeler une réponse plus développée (4-6 phrases maximum). Tu ne te répètes jamais et tu ne remplis jamais artificiellement. Chaque phrase doit apporter quelque chose de nouveau.
 - Tu n'utilises jamais de mots anglais. Ta réponse est entièrement en français.
 
 SOURCES HISTORIQUES (extraits de documents d'époque, pour nourrir ta réponse) :
