@@ -44,7 +44,7 @@ INDEX_DIR = BASE_DIR / "data" / "index"
 LOG_DIR   = BASE_DIR / "logs"
 
 MODEL_NAME = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-TOP_K        = 2                             # nombre de chunks récupérés par recherche
+TOP_K        = 3                             # nombre de chunks récupérés par recherche
 MAX_TOKENS   = 200                           # filet de sécurité — le stop sequence gère la fin naturelle
 
 HF_TOKEN     = os.getenv("HF_TOKEN")
