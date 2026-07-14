@@ -106,10 +106,10 @@ if LLM_BACKEND == "groq" and not GROQ_API_KEY:
 # ----------------------------------------------------------------------
 
 try:
-    from rag_chain import ask_louis
+    from rag_chain import ask_louis_stream
     import_error = None
 except Exception as e:
-    ask_louis = None
+    ask_louis_stream = None
     import_error = str(e)
 
 if import_error:
@@ -134,15 +134,14 @@ if submitted:
     question = question.strip()
     if not question:
         st.warning("Veuillez saisir une question.")
-    elif ask_louis is None:
+    elif ask_louis_stream is None:
         st.error("L'avatar Louis XVI n'est pas disponible (voir l'erreur ci-dessus).")
     else:
-        with st.spinner("Louis XVI réfléchit..."):
-            try:
-                reponse = ask_louis(question)
-                st.session_state.history.append((question, reponse, None))
-            except Exception as e:
-                st.session_state.history.append((question, None, str(e)))
+        try:
+            reponse = st.write_stream(ask_louis_stream(question))
+            st.session_state.history.append((question, reponse, None))
+        except Exception as e:
+            st.session_state.history.append((question, None, str(e)))
 
 # ----------------------------------------------------------------------
 # Affichage de la conversation (la plus récente en premier)

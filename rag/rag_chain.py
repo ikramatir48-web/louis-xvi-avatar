@@ -206,6 +206,40 @@ def _call_ollama(full_prompt: str, question: str) -> str:
     return response.json()["response"].strip()
 
 
+def _call_groq_stream(full_prompt: str, question: str):
+    stream = _client.chat.completions.create(
+        model=GROQ_MODEL,
+        messages=[
+            {"role": "system", "content": full_prompt},
+            {"role": "user", "content": question},
+        ],
+        temperature=0.7,
+        max_tokens=MAX_TOKENS,
+        stream=True,
+    )
+    for chunk in stream:
+        token = chunk.choices[0].delta.content
+        if token is not None:
+            yield token
+
+
+def _call_ollama_stream(full_prompt: str, question: str):
+    response = requests.post(OLLAMA_URL, json={
+        "model": OLLAMA_MODEL,
+        "prompt": full_prompt + "\n\n" + question,
+        "stream": True,
+        "options": {"temperature": 0.7, "num_predict": MAX_TOKENS}
+    }, stream=True)
+    response.raise_for_status()
+    for line in response.iter_lines():
+        if not line:
+            continue
+        data = json.loads(line)
+        token = data.get("response")
+        if token:
+            yield token
+
+
 # ----------------------------------------------------------------------
 # Fonction principale — utilisable depuis Streamlit ou en ligne de commande
 # ----------------------------------------------------------------------
@@ -243,6 +277,45 @@ def ask_louis(question: str) -> str:
 
     log.info("Réponse générée (%d caractères).", len(answer))
     return answer
+
+
+def ask_louis_stream(question: str):
+    """
+    Pose une question à Louis XVI et retourne un générateur de tokens.
+
+    Args:
+        question: La question posée à Louis XVI (en français).
+
+    Yields:
+        Les tokens de la réponse de Louis XVI, au fur et à mesure de leur génération.
+    """
+    _load_resources()
+
+    log.info("Question (stream) : %s", question)
+
+    # Retrieval
+    chunks = _retrieve(question)
+    log.info(
+        "Chunks récupérés : %s",
+        [f"{c['source_file']} (score={c['score']:.3f})" for c in chunks],
+    )
+
+    # Construction du prompt
+    context = _build_context(chunks)
+    full_prompt = SYSTEM_PROMPT.format(context=context)
+
+    # Appel au LLM en streaming (backend choisi via LLM_BACKEND)
+    if LLM_BACKEND == "ollama":
+        token_stream = _call_ollama_stream(full_prompt, question)
+    else:
+        token_stream = _call_groq_stream(full_prompt, question)
+
+    total_len = 0
+    for token in token_stream:
+        total_len += len(token)
+        yield token
+
+    log.info("Réponse générée en streaming (%d caractères).", total_len)
 
 
 # ----------------------------------------------------------------------
